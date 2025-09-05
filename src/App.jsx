@@ -44,33 +44,36 @@ function App() {
     if (isLastWordOperator()) {
       return console.log("Please enter the last number for operation")
     }
+    else if (value === "") {
+      return setTotalResult("Error")
+    }
 
     for (let i = 0; i < value.length; ++i) {
       if (isNaN(value[i])) {
         arrayValue.push(number);
         arrayValue.push(value[i]);
-        number = null; 
+        number = null;
       } else {
         number = (number || "") + value[i];
       }
     }
     if (number !== null) {
-      arrayValue.push(number); 
+      arrayValue.push(number);
     }
 
-    while(arrayValue.includes('/')){
-      doingOperation('/', 'div',arrayValue)
+    while (arrayValue.includes('/')) {
+      doingOperation('/', 'div', arrayValue)
     }
 
-    while(arrayValue.includes('*')){
-      doingOperation('*', 'mul',arrayValue)
+    while (arrayValue.includes('*')) {
+      doingOperation('*', 'mul', arrayValue)
     }
 
-    while(arrayValue.includes('+')){
+    while (arrayValue.includes('+')) {
       doingOperation('+', 'add', arrayValue)
     }
 
-    while(arrayValue.includes('-')){
+    while (arrayValue.includes('-')) {
       doingOperation('-', 'sub', arrayValue)
     }
 
@@ -80,9 +83,9 @@ function App() {
 
   function doingOperation(operand, val, arrayValue) {
     let operatorIndex = arrayValue.indexOf(operand)
-      let resultValue = (operation(arrayValue[operatorIndex-1], val , arrayValue[operatorIndex + 1]))
+    let resultValue = (operation(arrayValue[operatorIndex - 1], val, arrayValue[operatorIndex + 1]))
 
-      return arrayValue.splice(operatorIndex-1, 3, resultValue)
+    return arrayValue.splice(operatorIndex - 1, 3, resultValue)
   }
 
   const operation = (firstNum, operator, secondNum) => {
@@ -103,7 +106,7 @@ function App() {
 
       <input type='text' readOnly value={value} name='calculate' />
 
-      <span style={{fontSize : '24px', marginTop:'8px'}}>{totalResult}</span>
+      <span style={{ fontSize: '24px', marginTop: '8px' }}>{totalResult}</span>
 
       <div style={{ display: 'grid', marginTop: "20px", width: "100%", gridTemplateColumns: 'repeat(4,1fr)' }}>
         {buttonValues.map((value) => (
